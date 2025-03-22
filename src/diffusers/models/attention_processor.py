@@ -677,8 +677,13 @@ class Attention(nn.Module):
 
         if self.upcast_softmax:
             attention_scores = attention_scores.float()
-
+        if self.trick_mix_precesion:
+            original_dtype=attention_probs.dtype
+            attention_scores = attention_scores.to(torch.float32)
         attention_probs = attention_scores.softmax(dim=-1)
+        if self.trick_mix_precesion:
+            attention_probs = attention_probs.to(original_dtype)
+  
         del attention_scores
 
         attention_probs = attention_probs.to(dtype)

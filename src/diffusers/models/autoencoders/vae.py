@@ -240,7 +240,7 @@ class Decoder(nn.Module):
             stride=1,
             padding=1,
         )
-
+        self.trick_mix_precesion = bool(os.environ.get("PixArtTransformerMV2DModel_trick_mix_precesion", False))
         self.up_blocks = nn.ModuleList([])
 
         temb_channels = in_channels if norm_type == "spatial" else None
