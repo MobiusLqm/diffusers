@@ -29,6 +29,7 @@ from ..unets.unet_2d_blocks import (
     get_up_block,
 )
 
+import os 
 
 @dataclass
 class EncoderOutput(BaseOutput):

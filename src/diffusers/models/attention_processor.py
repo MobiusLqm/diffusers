@@ -26,7 +26,7 @@ from ..utils.torch_utils import is_torch_version, maybe_allow_in_graph
 
 
 logger = logging.get_logger(__name__)  # pylint: disable=invalid-name
-
+import os 
 if is_torch_npu_available():
     import torch_npu
 
@@ -3226,6 +3226,7 @@ class AttnProcessor2_0:
     def __init__(self):
         if not hasattr(F, "scaled_dot_product_attention"):
             raise ImportError("AttnProcessor2_0 requires PyTorch 2.0, to use it, please upgrade PyTorch to 2.0.")
+        self.trick_mix_precesion = bool(os.environ.get("PixArtTransformerMV2DModel_trick_mix_precesion", False))
 
     def __call__(
         self,
